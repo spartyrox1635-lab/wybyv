@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+            position: relative;
+        }
+
+        /* Floating hearts background animation */
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(4) { left: 70%; animation-delay: 1s; }
+        .heart:nth-child(5) { left: 90%; animation-delay: 3s; }
+
+        /* Main container */
+        .container {
+            text-align: center;
+            z-index: 10;
+            max-width: 90%;
+        }
+
+        h1 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Button container */
+        .button-container {
+            position: relative;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            flex-wrap: wrap;
+        }
+
+        /* Base button styles */
+        button {
+            padding: 20px 50px;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Yes button */
+        #yesBtn {
+            background: linear-gradient(135deg, #ff6b9d, #ff5e87);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(255, 94, 135, 0.5);
+        }
+
+        /* No button */
+        #noBtn {
+            background: linear-gradient(135deg, #6c5b7b, #5a4968);
+            color: white;
+            position: relative;
+            transition: all 0.15s ease-out;
+        }
+
+        #noBtn.evil {
+            position: fixed;
+            z-index: 1000;
+        }
+
+        #noBtn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Success container */
+        .success-container {
+            display: none;
+            text-align: center;
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .success-container.show {
+            display: block;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-container img {
+            max-width: 90%;
+            max-height: 40vh;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        .success-message {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: white;
+            font-weight: 700;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Shake animation for mobile */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-5px) rotate(-5deg); }
+            75% { transform: translateX(5px) rotate(5deg); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                margin-bottom: 30px;
+            }
+
+            .button-container {
+                gap: 15px;
+            }
+
+            button {
+                padding: 15px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 12px 30px;
+            }
+
+            .success-container img {
+                max-height: 30vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart">❤️</div>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💝</div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Question section -->
+        <div id="questionContainer">
+            <h1>Medhavi, Will you be my Valentine? ❤️</h1>
+            <div class="button-container">
+                <button id="yesBtn">Yes 😍</button>
+                <button id="noBtn">No 😈</button>
+            </div>
+        </div>
+
+        <!-- Success section (hidden by default) -->
+        <div class="success-container" id="successContainer">
+            <img src="me.JPG" alt="me being happy" id="celebrationImg">
+            <div class="success-message">YAY!! ❤️🥰</div>
+            <span style="display: block; margin-top: 15px; font-size: clamp(1rem, 2.5vw, 1.3rem); color: #ffe6f0; font-weight: 400; opacity: 0.95; text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);">
+                I knew clicking no was impossible for you 😜
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionContainer = document.getElementById('questionContainer');
+        const successContainer = document.getElementById('successContainer');
+
+        // Evil behavior variables
+        let evilLevel = 1;
+        let baseDistance = 120;
+        let baseSpeed = 150;
+
+        // Detect if touch device
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        // Yes button click handler
+        yesBtn.addEventListener('click', () => {
+            questionContainer.classList.add('hidden');
+            successContainer.classList.add('show');
+        });
+
+        // Function to get safe random position for No button
+        function getRandomPosition() {
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            
+            // Get viewport dimensions
+            const maxX = window.innerWidth - btnWidth - 20;
+            const maxY = window.innerHeight - btnHeight - 20;
+            
+            // Generate random position with padding
+            const x = Math.max(10, Math.random() * maxX);
+            const y = Math.max(10, Math.random() * maxY);
+            
+            return { x, y };
+        }
+
+        // Function to move No button to position
+        function moveNoButton(x, y) {
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        // Function to calculate distance between two points
+        function getDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        }
+
+        // Desktop behavior: Run away from cursor
+        if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => {
+                if (questionContainer.classList.contains('hidden')) return;
+
+                const btnRect = noBtn.getBoundingClientRect();
+                const btnCenterX = btnRect.left + btnRect.width / 2;
+                const btnCenterY = btnRect.top + btnRect.height / 2;
+
+                const distance = getDistance(e.clientX, e.clientY, btnCenterX, btnCenterY);
+                const detectionRadius = baseDistance * evilLevel;
+
+                if (distance < detectionRadius) {
+                    // Make button evil (fixed position)
+                    if (!noBtn.classList.contains('evil')) {
+                        noBtn.classList.add('evil');
+                        const rect = noBtn.getBoundingClientRect();
+                        noBtn.style.left = rect.left + 'px';
+                        noBtn.style.top = rect.top + 'px';
+                    }
+
+                    // Increase evil level
+                    evilLevel = Math.min(evilLevel + 0.1, 3);
+
+                    // Calculate direction away from cursor
+                    const deltaX = btnCenterX - e.clientX;
+                    const deltaY = btnCenterY - e.clientY;
+                    const angle = Math.atan2(deltaY, deltaX);
+
+                    // Sometimes reverse direction (dodge prediction)
+                    const dodgeFactor = Math.random() > 0.7 ? -1 : 1;
+                    const moveDistance = baseSpeed * evilLevel * dodgeFactor;
+
+                    let newX = btnCenterX + Math.cos(angle) * moveDistance - noBtn.offsetWidth / 2;
+                    let newY = btnCenterY + Math.sin(angle) * moveDistance - noBtn.offsetHeight / 2;
+
+                    // Add some randomness
+                    newX += (Math.random() - 0.5) * 100 * evilLevel;
+                    newY += (Math.random() - 0.5) * 100 * evilLevel;
+
+                    // Clamp to viewport
+                    newX = Math.max(10, Math.min(newX, window.innerWidth - noBtn.offsetWidth - 10));
+                    newY = Math.max(10, Math.min(newY, window.innerHeight - noBtn.offsetHeight - 10));
+
+                    moveNoButton(newX, newY);
+
+                    // Add rotation
+                    const rotation = (Math.random() - 0.5) * 30 * evilLevel;
+                    noBtn.style.transform = `rotate(${rotation}deg) scale(${Math.max(0.7, 1 - evilLevel * 0.1)})`;
+                }
+            });
+
+            // Also teleport on hover attempt
+            noBtn.addEventListener('mouseenter', () => {
+                if (questionContainer.classList.contains('hidden')) return;
+                
+                const pos = getRandomPosition();
+                moveNoButton(pos.x, pos.y);
+                
+                const rotation = (Math.random() - 0.5) * 45;
+                noBtn.style.transform = `rotate(${rotation}deg) scale(${Math.max(0.6, 1 - evilLevel * 0.15)})`;
+            });
+        }
+
+        // Mobile behavior: Teleport on tap
+        if (isTouchDevice) {
+            noBtn.addEventListener('touchstart', (e) => {
+                if (questionContainer.classList.contains('hidden')) return;
+                
+                e.preventDefault();
+                
+                // Make button evil (fixed position) if not already
+                if (!noBtn.classList.contains('evil')) {
+                    noBtn.classList.add('evil');
+                    const rect = noBtn.getBoundingClientRect();
+                    noBtn.style.left = rect.left + 'px';
+                    noBtn.style.top = rect.top + 'px';
+                }
+
+                // Teleport to random position
+                const pos = getRandomPosition();
+                moveNoButton(pos.x, pos.y);
+
+                // Add random rotation and scale
+                const rotation = (Math.random() - 0.5) * 60;
+                const scale = 0.6 + Math.random() * 0.4;
+                noBtn.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+                // Add shake animation
+                noBtn.classList.add('shake');
+                setTimeout(() => {
+                    noBtn.classList.remove('shake');
+                }, 300);
+
+                // Increase evil level
+                evilLevel = Math.min(evilLevel + 0.2, 3);
+            });
+        }
+
+        // Prevent actual click on No button
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Just in case they manage to click it, teleport it away
+            if (!questionContainer.classList.contains('hidden')) {
+                const pos = getRandomPosition();
+                if (noBtn.classList.contains('evil')) {
+                    moveNoButton(pos.x, pos.y);
+                }
+            }
+        });
+
+        // Reset button on window resize
+        window.addEventListener('resize', () => {
+            if (noBtn.classList.contains('evil') && !questionContainer.classList.contains('hidden')) {
+                const pos = getRandomPosition();
+                moveNoButton(pos.x, pos.y);
+            }
+        });
+    </script>
+</body>
+</html>
